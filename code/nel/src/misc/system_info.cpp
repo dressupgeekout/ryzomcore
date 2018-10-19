@@ -184,12 +184,16 @@
 #		include <cpuid.h>
 #		define nlcpuid(regs, idx) __cpuid(idx, regs[0], regs[1], regs[2], regs[3])
 #	endif // NL_CPU_INTEL
-#	ifdef NL_OS_MAC
+#	if defined(NL_OS_MAC) || defined(__NetBSD__)
 #		include <sys/mount.h>
 #	else
 #		include <sys/vfs.h>
 #	endif
 #endif // NL_OS_WINDOWS
+
+#ifdef __NetBSD__
+#include <sys/statvfs.h>
+#endif // __NetBSD__
 
 #include "nel/misc/system_info.h"
 #include "nel/misc/command.h"
@@ -1454,8 +1458,13 @@ uint64 CSystemInfo::availableHDSpace (const string &filename)
 	std::string path = CFile::getPath(filename);
 
 #ifdef NL_OS_UNIX
+#ifdef __NetBSD__
+	struct statvfs stfs;
+	if (statvfs(path.c_str(), &stfs) != 0) return 0;
+#else
 	struct statfs stfs;
 	if (::statfs(path.c_str(), &stfs) != 0) return 0;
+#endif /* __NetBSD__ */
 
 	return (uint64)stfs.f_bavail * (uint64)stfs.f_bsize;
 #else
