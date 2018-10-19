@@ -201,7 +201,11 @@ ELSE()
 ENDIF()
 
 IF(UNIX)
-  TARGET_LINK_LIBRARIES(nelmisc -lc -ldl)
+  # XXX not portable
+  #
+  # We don't have libdl on NetBSD, but we do require libexecinfo for
+  # backtrace(3)
+  TARGET_LINK_LIBRARIES(nelmisc -lc -lexecinfo)
   IF(APPLE)
     TARGET_LINK_LIBRARIES(nelmisc ${CARBON_FRAMEWORK})
   ELSE()
