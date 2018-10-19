@@ -402,7 +402,11 @@ typedef	unsigned	int			uint;			// at least 32bits (depend of processor)
 #define aligned_free(ptr) free(ptr)
 #else
 #include <malloc.h>
+#ifdef __NetBSD__
+#define aligned_malloc(size, alignment) aligned_alloc(alignment, size)
+#else
 #define aligned_malloc(size, alignment) memalign(alignment, size)
+#endif /* __NetBSD__ */
 #define aligned_free(ptr) free(ptr)
 #endif /* NL_COMP_ */
 
