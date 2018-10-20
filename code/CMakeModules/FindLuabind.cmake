@@ -146,8 +146,8 @@ IF(WITH_STLPORT)
 ENDIF()
 
 # generic libraries names
-LIST(APPEND LIBRARY_NAME_RELEASE luabind libluabind)
-LIST(APPEND LIBRARY_NAME_DEBUG luabind_d luabindd libluabind_d libluabindd)
+LIST(APPEND LIBRARY_NAME_RELEASE luabind libluabind luabind_lua53)
+LIST(APPEND LIBRARY_NAME_DEBUG luabind_d luabindd libluabind_d libluabindd luabind_lua53)
 
 FIND_LIBRARY(LUABIND_LIBRARY_RELEASE
   NAMES ${LIBRARY_NAME_RELEASE}

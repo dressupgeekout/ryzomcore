@@ -3,13 +3,15 @@ set -ex
 
 mkdir -p __build
 
+export LUABIND_DIR=/usr/pkg
+
 (
   cd __build && cmake \
     -DWITH_NEL=TRUE \
     -DWITH_NEL_TESTS=FALSE \
     -DWITH_SOUND=FALSE \
     -DWITH_RYZOM_CLIENT=FALSE \
-    -DWITH_GUI=FALSE \
+    -DWITH_GUI=TRUE \
     ..
 )
 
