@@ -4,6 +4,7 @@ set -ex
 mkdir -p __build
 
 export LUABIND_DIR=/usr/pkg
+export FREETYPE_DIR=/usr/pkg
 
 (
   cd __build && cmake \
